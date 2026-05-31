@@ -74,8 +74,6 @@ export default function Home() {
   const experienceRef = useRef(null);
   const collectionRef = useRef(null);
   const showcaseRef = useRef(null);
-  const showcaseTrackRef = useRef(null);
-  const showcaseViewportRef = useRef(null);
   const testimonialsRef = useRef(null);
   const ctaRef = useRef(null);
   const { addToCart } = useCart();
@@ -183,19 +181,15 @@ export default function Home() {
 
       // ── SHOWCASE - pinned horizontal ──
       if (showcaseRef.current) {
-        const track = showcaseTrackRef.current;
-        const viewport = showcaseViewportRef.current;
-        if (track && viewport) {
-          const getDistance = () => Math.max(0, track.scrollWidth - viewport.clientWidth);
-
+        const track = showcaseRef.current.querySelector(".showcase-track");
+        if (track) {
           gsap.to(track, {
-            x: () => -getDistance(),
+            x: () => -(track.scrollWidth - window.innerWidth + 80),
             ease: "none",
-            invalidateOnRefresh: true,
             scrollTrigger: {
               trigger: showcaseRef.current,
               start: "top top",
-              end: () => `+=${getDistance()}`,
+              end: () => `+=${track.scrollWidth - window.innerWidth + 80}`,
               scrub: 1.2,
               pin: true,
               anticipatePin: 1,
@@ -542,24 +536,17 @@ export default function Home() {
           7. HORIZONTAL SHOWCASE (pinned)
       ────────────────────────────────────────────── */}
       <section ref={showcaseRef} style={{ overflow: "hidden", background: "var(--surface)" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "minmax(280px, 35vw) 1fr", minHeight: "100vh" }}>
-          {/* Intro panel stays visible while the product track scrolls */}
+        <div className="showcase-track" style={{ display: "flex", gap: "0px", paddingLeft: "10vw", paddingRight: "10vw", width: "max-content" }}>
+          {/* Intro panel */}
           <div style={{
-            minHeight: "100vh",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            padding: "100px 6vw 100px 10vw",
-            borderRight: "1px solid var(--border)",
-            background: "linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0))",
-            position: "relative",
-            zIndex: 2,
+            width: "35vw", minHeight: "100vh", flexShrink: 0,
+            display: "flex", flexDirection: "column", justifyContent: "center", paddingRight: "60px",
           }}>
             <p style={{ color: "var(--accent)", fontSize: "0.72rem", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "16px" }}>— The Collection</p>
             <h2 className="font-display" style={{ fontSize: "clamp(3rem, 5vw, 5rem)", lineHeight: 0.9, marginBottom: "20px" }}>
               FOUR MODELS.<br />ONE PURPOSE.
             </h2>
-            <p style={{ color: "var(--muted)", fontSize: "0.92rem", lineHeight: 1.8, maxWidth: "360px" }}>
+            <p style={{ color: "var(--muted)", fontSize: "0.92rem", lineHeight: 1.8 }}>
               Drag or scroll to explore all four silhouettes in the 2024 collection.
             </p>
             <div style={{ marginTop: "32px", display: "flex", alignItems: "center", gap: "12px", color: "var(--muted)", fontSize: "0.8rem" }}>
@@ -568,54 +555,50 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Horizontally scrolling panels */}
-          <div ref={showcaseViewportRef} style={{ overflow: "hidden", minWidth: 0 }}>
-            <div ref={showcaseTrackRef} className="showcase-track" style={{ display: "flex", gap: "0px", width: "max-content", minHeight: "100vh" }}>
-              {products.map((p) => (
-                <div key={p.id} style={{
-                  width: "420px", minHeight: "100vh", flexShrink: 0,
-                  display: "flex", flexDirection: "column", justifyContent: "center",
-                  padding: "60px 40px",
-                  borderLeft: "1px solid var(--border)",
-                }}>
-                  <div className="hover-card" style={{
-                    background: "var(--bg)", padding: "40px 32px",
-                    height: "100%", maxHeight: "600px",
-                    display: "flex", flexDirection: "column",
-                  }}>
-                    {p.badge && (
-                      <span style={{
-                        display: "inline-block", background: "var(--accent)", color: "#000",
-                        padding: "4px 12px", fontSize: "0.62rem", fontWeight: "700",
-                        letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "16px",
-                        alignSelf: "flex-start",
-                      }}>{p.badge}</span>
-                    )}
-                    <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <img src={p.image} alt={`${p.name} shoe`} loading="lazy"
-                        style={{ width: "100%", maxHeight: "240px", objectFit: "contain", filter: "drop-shadow(0 16px 40px rgba(0,0,0,0.4))", transition: "transform 0.5s ease, filter 0.5s ease" }}
-                        onMouseEnter={e => { e.target.style.transform = "scale(1.06) rotate(-2deg)"; e.target.style.filter = "drop-shadow(0 20px 50px rgba(200,255,0,0.18))"; }}
-                        onMouseLeave={e => { e.target.style.transform = "scale(1) rotate(0deg)"; e.target.style.filter = "drop-shadow(0 16px 40px rgba(0,0,0,0.4))"; }}
-                        onError={e => { e.target.style.display = "none"; e.target.nextSibling.style.display = "block"; }}
-                      />
-                      <div style={{ display: "none" }}><ShoeSVG id={p.id} size={260} /></div>
-                    </div>
-                    <div style={{ marginTop: "24px" }}>
-                      <p style={{ color: "var(--muted)", fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "6px" }}>{p.category}</p>
-                      <h3 className="font-display" style={{ fontSize: "2rem", marginBottom: "8px" }}>{p.name}</h3>
-                      <p style={{ color: "var(--muted)", fontSize: "0.85rem", marginBottom: "20px", lineHeight: 1.7 }}>{p.tagline}</p>
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <span style={{ fontSize: "1.4rem", fontWeight: "700" }}>${p.price}</span>
-                        <button className="btn-accent" style={{ padding: "9px 22px", fontSize: "0.7rem" }} onClick={() => handleAdd(p)}>
-                          <span>{addedId === p.id ? "✓" : "+ Cart"}</span>
-                        </button>
-                      </div>
-                    </div>
+          {/* Product panels */}
+          {products.map((p) => (
+            <div key={p.id} style={{
+              width: "420px", minHeight: "100vh", flexShrink: 0,
+              display: "flex", flexDirection: "column", justifyContent: "center",
+              padding: "60px 40px",
+              borderLeft: "1px solid var(--border)",
+            }}>
+              <div className="hover-card" style={{
+                background: "var(--bg)", padding: "40px 32px",
+                height: "100%", maxHeight: "600px",
+                display: "flex", flexDirection: "column",
+              }}>
+                {p.badge && (
+                  <span style={{
+                    display: "inline-block", background: "var(--accent)", color: "#000",
+                    padding: "4px 12px", fontSize: "0.62rem", fontWeight: "700",
+                    letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "16px",
+                    alignSelf: "flex-start",
+                  }}>{p.badge}</span>
+                )}
+                <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <img src={p.image} alt={`${p.name} shoe`} loading="lazy"
+                    style={{ width: "100%", maxHeight: "240px", objectFit: "contain", filter: "drop-shadow(0 16px 40px rgba(0,0,0,0.4))", transition: "transform 0.5s ease, filter 0.5s ease" }}
+                    onMouseEnter={e => { e.target.style.transform = "scale(1.06) rotate(-2deg)"; e.target.style.filter = "drop-shadow(0 20px 50px rgba(200,255,0,0.18))"; }}
+                    onMouseLeave={e => { e.target.style.transform = "scale(1) rotate(0deg)"; e.target.style.filter = "drop-shadow(0 16px 40px rgba(0,0,0,0.4))"; }}
+                    onError={e => { e.target.style.display = "none"; e.target.nextSibling.style.display = "block"; }}
+                  />
+                  <div style={{ display: "none" }}><ShoeSVG id={p.id} size={260} /></div>
+                </div>
+                <div style={{ marginTop: "24px" }}>
+                  <p style={{ color: "var(--muted)", fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "6px" }}>{p.category}</p>
+                  <h3 className="font-display" style={{ fontSize: "2rem", marginBottom: "8px" }}>{p.name}</h3>
+                  <p style={{ color: "var(--muted)", fontSize: "0.85rem", marginBottom: "20px", lineHeight: 1.7 }}>{p.tagline}</p>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <span style={{ fontSize: "1.4rem", fontWeight: "700" }}>${p.price}</span>
+                    <button className="btn-accent" style={{ padding: "9px 22px", fontSize: "0.7rem" }} onClick={() => handleAdd(p)}>
+                      <span>{addedId === p.id ? "✓" : "+ Cart"}</span>
+                    </button>
                   </div>
                 </div>
-              ))}
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       </section>
 
