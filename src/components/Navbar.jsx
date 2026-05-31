@@ -21,6 +21,15 @@ export default function Navbar() {
   const { count } = useCart();
   const { theme, toggle } = useTheme();
 
+  const handleLogoClick = () => {
+    setOpen(false);
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    });
+  };
+
   useEffect(() => {
     if (!overlayRef.current) return;
     if (open) {
@@ -53,7 +62,7 @@ export default function Navbar() {
         display: "flex", alignItems: "center", justifyContent: "space-between",
       }}>
         {/* Logo */}
-          <Link to="/" onClick={() => setOpen(false)} style={{ textDecoration: "none", position: "relative", zIndex: 8100 }}>
+          <Link to="/" onClick={handleLogoClick} style={{ textDecoration: "none", position: "relative", zIndex: 8100 }}>
           <span className="font-display" style={{
             fontSize: "1.65rem", color: open ? "var(--accent)" : "var(--accent)",
             letterSpacing: "0.12em", lineHeight: 1,

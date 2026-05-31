@@ -183,15 +183,21 @@ export default function Home() {
       if (showcaseRef.current) {
         const track = showcaseRef.current.querySelector(".showcase-track");
         if (track) {
+          const distance = () => Math.max(0, track.scrollWidth - window.innerWidth + 80);
+
           gsap.to(track, {
-            x: () => -(track.scrollWidth - window.innerWidth + 80),
+            x: () => -distance(),
             ease: "none",
+            invalidateOnRefresh: true,
             scrollTrigger: {
               trigger: showcaseRef.current,
               start: "top top",
-              end: () => `+=${track.scrollWidth - window.innerWidth + 80}`,
+              end: () => `+=${distance()}`,
               scrub: 1.2,
               pin: true,
+              pinSpacing: true,
+              pinReparent: true,
+              pinType: "fixed",
               anticipatePin: 1,
             }
           });
