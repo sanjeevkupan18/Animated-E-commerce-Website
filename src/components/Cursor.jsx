@@ -2,10 +2,16 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 
 export default function Cursor() {
+  const canUseCursor =
+    typeof window !== "undefined" &&
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
+    window.innerWidth > 900;
   const dotRef = useRef(null);
   const ringRef = useRef(null);
 
   useEffect(() => {
+    if (!canUseCursor) return;
+
     const dot = dotRef.current;
     const ring = ringRef.current;
     let mouseX = 0, mouseY = 0;
@@ -51,7 +57,9 @@ export default function Cursor() {
       document.removeEventListener("mouseout", handleMouseOut);
       cancelAnimationFrame(rafId);
     };
-  }, []);
+  }, [canUseCursor]);
+
+  if (!canUseCursor) return null;
 
   return (
     <>

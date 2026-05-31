@@ -7,6 +7,7 @@ export default function ParticleBackground() {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
+    const isCompact = window.innerWidth <= 900;
 
     let W = window.innerWidth;
     let H = window.innerHeight;
@@ -34,8 +35,8 @@ export default function ParticleBackground() {
     };
 
     // Particles
-    const N_PARTICLES = 80;
-    const N_LINES = 12;
+    const N_PARTICLES = isCompact ? 30 : 80;
+    const N_LINES = isCompact ? 6 : 12;
 
     const particles = Array.from({ length: N_PARTICLES }, () => ({
       x: Math.random() * W,

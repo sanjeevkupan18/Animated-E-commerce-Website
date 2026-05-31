@@ -56,7 +56,7 @@ export default function Navbar() {
   return (
     <>
       {/* ── TOP BAR ── */}
-      <header style={{
+      <header className="site-header" style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 8000,
         padding: "22px 40px",
         display: "flex", alignItems: "center", justifyContent: "space-between",
@@ -124,6 +124,7 @@ export default function Navbar() {
       {/* ── NAV OVERLAY ── */}
       <div
         ref={overlayRef}
+        className="nav-overlay-panel"
         style={{
           position: "fixed", inset: 0, background: "var(--bg)", zIndex: 7500,
           clipPath: "inset(0 0 100% 0)",
@@ -133,7 +134,7 @@ export default function Navbar() {
         }}
       >
         {/* Accent blob */}
-        <div style={{
+        <div className="nav-overlay-blob" style={{
           position: "absolute", right: "5vw", top: "50%",
           transform: "translateY(-50%)",
           width: "40vw", height: "40vw", maxWidth: "500px", maxHeight: "500px",
@@ -142,7 +143,7 @@ export default function Navbar() {
           pointerEvents: "none",
         }} />
 
-        <nav style={{ width: "100%" }}>
+        <nav className="nav-overlay-links" style={{ width: "100%" }}>
           {navLinks.map((link, i) => (
             <div key={link.path} style={{
               display: "flex", alignItems: "baseline", gap: "24px",
@@ -185,7 +186,7 @@ export default function Navbar() {
         </nav>
 
         {/* Bottom row */}
-        <div style={{
+        <div className="nav-overlay-bottom" style={{
           position: "absolute", bottom: "36px", left: "10vw", right: "40px",
           display: "flex", justifyContent: "space-between", alignItems: "center",
         }}>

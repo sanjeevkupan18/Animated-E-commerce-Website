@@ -180,7 +180,8 @@ export default function Home() {
       }
 
       // ── SHOWCASE - pinned horizontal ──
-      if (showcaseRef.current) {
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+      if (showcaseRef.current && !isMobile) {
         const track = showcaseRef.current.querySelector(".showcase-track");
         if (track) {
           const distance = () => Math.max(0, track.scrollWidth - window.innerWidth + 80);
@@ -234,12 +235,12 @@ export default function Home() {
   ];
 
   return (
-    <main style={{ position: "relative", zIndex: 1 }}>
+    <main className="home-page" style={{ position: "relative", zIndex: 1 }}>
 
       {/* ──────────────────────────────────────────────
           1. HERO
       ────────────────────────────────────────────── */}
-      <section style={{
+      <section className="home-hero" style={{
         minHeight: "100vh", display: "flex", alignItems: "center",
         padding: "0 10vw", position: "relative", overflow: "hidden",
         gap: "40px", paddingTop: "100px",
@@ -281,7 +282,7 @@ export default function Home() {
             </div>
           ))}
 
-          <div ref={heroSubRef} style={{ opacity: 0, marginTop: "28px", display: "flex", flexDirection: "column", gap: "28px", maxWidth: "480px" }}>
+          <div ref={heroSubRef} className="hero-actions" style={{ opacity: 0, marginTop: "28px", display: "flex", flexDirection: "column", gap: "28px", maxWidth: "480px" }}>
             <p style={{ color: "var(--muted)", fontSize: "1.05rem", lineHeight: 1.8 }}>
               Premium footwear engineered for those who push limits. Every stitch. Every sole. Every step.
             </p>
@@ -294,7 +295,7 @@ export default function Home() {
               </Link>
             </div>
             {/* Trust signals */}
-            <div style={{ display: "flex", gap: "20px" }}>
+            <div className="hero-trust" style={{ display: "flex", gap: "20px" }}>
               {["Free Shipping", "90-Day Returns", "Carbon Neutral"].map(t => (
                 <span key={t} style={{
                   display: "flex", alignItems: "center", gap: "5px",
@@ -308,7 +309,7 @@ export default function Home() {
         </div>
 
         {/* Right – Shoe + orbit */}
-        <div style={{ flex: 1, zIndex: 1, display: "flex", alignItems: "center", justifyContent: "center", position: "relative", minHeight: "460px" }}>
+        <div className="hero-visual" style={{ flex: 1, zIndex: 1, display: "flex", alignItems: "center", justifyContent: "center", position: "relative", minHeight: "460px" }}>
           {/* Orbit ring */}
           <div ref={heroOrbitRef} style={{
             position: "absolute", width: "420px", height: "420px",
@@ -387,8 +388,8 @@ export default function Home() {
       {/* ──────────────────────────────────────────────
           3. STATS SECTION
       ────────────────────────────────────────────── */}
-      <section ref={statsRef} style={{ padding: "100px 10vw", background: "var(--bg)" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1px", background: "var(--border)" }}>
+      <section ref={statsRef} className="home-stats" style={{ padding: "100px 10vw", background: "var(--bg)" }}>
+        <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1px", background: "var(--border)" }}>
           {stats.map((s, i) => (
             <div key={i} className="stat-card hover-card" style={{ padding: "52px 32px", textAlign: "center", opacity: 0 }}>
               <div className="font-display" style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)", color: "var(--accent)", lineHeight: 1, marginBottom: "12px" }}>
@@ -403,7 +404,7 @@ export default function Home() {
       {/* ──────────────────────────────────────────────
           4. FEATURED PRODUCT
       ────────────────────────────────────────────── */}
-      <section ref={featuredRef} style={{
+      <section ref={featuredRef} className="home-featured" style={{
         minHeight: "90vh", display: "flex", alignItems: "center",
         padding: "80px 10vw", background: "var(--surface)", gap: "80px", overflow: "hidden",
       }}>
@@ -465,7 +466,7 @@ export default function Home() {
             <span style={{ background: "var(--accent)", color: "#000", padding: "2px 8px", fontSize: "0.7rem", fontWeight: "700" }}>22% OFF</span>
           </div>
 
-          <div className="feat-text" style={{ display: "flex", gap: "12px" }}>
+          <div className="feat-text feat-actions" style={{ display: "flex", gap: "12px" }}>
             <button className="btn-accent" onClick={() => handleAdd(products[0])}>
               <span>{addedId === 1 ? "✓ Added!" : "Add to Cart"}</span>
             </button>
@@ -492,7 +493,7 @@ export default function Home() {
       {/* ──────────────────────────────────────────────
           6. EXPERIENCE / FEATURES GRID
       ────────────────────────────────────────────── */}
-      <section ref={experienceRef} style={{ padding: "120px 10vw", background: "var(--bg)" }}>
+      <section ref={experienceRef} className="home-experience" style={{ padding: "120px 10vw", background: "var(--bg)" }}>
         <div style={{ marginBottom: "70px", display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "24px" }}>
           <div>
             <p style={{ color: "var(--accent)", fontSize: "0.72rem", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "14px" }}>
@@ -506,7 +507,7 @@ export default function Home() {
             Six pillars of engineering excellence that separate SOLESTEP from everything else on the market.
           </p>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1px", background: "var(--border)" }}>
+        <div className="experience-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1px", background: "var(--border)" }}>
           {expFeatures.map((f) => (
             <div key={f.num} className="exp-card hover-card" style={{
               background: "var(--bg)", padding: "48px 36px", opacity: 0, cursor: "default",
@@ -541,10 +542,10 @@ export default function Home() {
       {/* ──────────────────────────────────────────────
           7. HORIZONTAL SHOWCASE (pinned)
       ────────────────────────────────────────────── */}
-      <section ref={showcaseRef} style={{ overflow: "hidden", background: "var(--surface)" }}>
+      <section ref={showcaseRef} className="home-showcase" style={{ overflow: "hidden", background: "var(--surface)" }}>
         <div className="showcase-track" style={{ display: "flex", gap: "0px", paddingLeft: "10vw", paddingRight: "10vw", width: "max-content" }}>
           {/* Intro panel */}
-          <div style={{
+            <div className="showcase-panel showcase-intro" style={{
             width: "35vw", minHeight: "100vh", flexShrink: 0,
             display: "flex", flexDirection: "column", justifyContent: "center", paddingRight: "60px",
           }}>
@@ -563,7 +564,7 @@ export default function Home() {
 
           {/* Product panels */}
           {products.map((p) => (
-            <div key={p.id} style={{
+            <div key={p.id} className="showcase-panel" style={{
               width: "420px", minHeight: "100vh", flexShrink: 0,
               display: "flex", flexDirection: "column", justifyContent: "center",
               padding: "60px 40px",
@@ -611,8 +612,8 @@ export default function Home() {
       {/* ──────────────────────────────────────────────
           8. COLLECTION GRID
       ────────────────────────────────────────────── */}
-      <section ref={collectionRef} style={{ padding: "100px 10vw", background: "var(--bg)" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "56px" }}>
+      <section ref={collectionRef} className="home-collection" style={{ padding: "100px 10vw", background: "var(--bg)" }}>
+        <div className="section-head" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "56px" }}>
           <div>
             <p style={{ color: "var(--accent)", fontSize: "0.72rem", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "12px" }}>— 2024 Collection</p>
             <h2 className="font-display" style={{ fontSize: "clamp(2.5rem, 5.5vw, 5rem)", lineHeight: 0.9 }}>ALL MODELS</h2>
@@ -621,7 +622,7 @@ export default function Home() {
             <button className="btn-outline"><span>View All →</span></button>
           </Link>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "16px" }}>
+        <div className="collection-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "16px" }}>
           {products.map(p => (
             <div key={p.id} className="col-card product-card hover-card" style={{ opacity: 0, cursor: "pointer" }}>
               <div style={{
@@ -659,12 +660,12 @@ export default function Home() {
       {/* ──────────────────────────────────────────────
           9. TESTIMONIALS
       ────────────────────────────────────────────── */}
-      <section ref={testimonialsRef} style={{ padding: "100px 10vw", background: "var(--surface)" }}>
+      <section ref={testimonialsRef} className="home-reviews" style={{ padding: "100px 10vw", background: "var(--surface)" }}>
         <div style={{ marginBottom: "60px", textAlign: "center" }}>
           <p style={{ color: "var(--accent)", fontSize: "0.72rem", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "14px" }}>— Reviews</p>
           <h2 className="font-display" style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)", lineHeight: 0.9 }}>WHAT THEY SAY</h2>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
+        <div className="reviews-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
           {testimonials.map((t, i) => (
             <div key={i} className="testi-item hover-card" style={{
               padding: "40px 32px", opacity: 0,
@@ -705,7 +706,7 @@ export default function Home() {
       {/* ──────────────────────────────────────────────
           10. BRAND PROMISE
       ────────────────────────────────────────────── */}
-      <section style={{ padding: "120px 10vw", background: "var(--bg)", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "center" }}>
+      <section className="home-promise" style={{ padding: "120px 10vw", background: "var(--bg)", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "center" }}>
         <div>
           <p style={{ color: "var(--accent)", fontSize: "0.72rem", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "14px" }}>— The Promise</p>
           <h2 className="font-display" style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)", lineHeight: 0.9, marginBottom: "28px" }}>
@@ -714,7 +715,7 @@ export default function Home() {
           <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.9, marginBottom: "32px" }}>
             Every single SOLESTEP shoe passes our 48-point quality inspection before it ever reaches your door. We test in labs, on tracks, and on trails. Because you deserve nothing less.
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+          <div className="promise-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
             {["2-Year Warranty", "48-Point QC", "Athlete Tested", "Climate Pledged"].map(p => (
               <div key={p} className="hover-card" style={{ padding: "16px 20px", display: "flex", alignItems: "center", gap: "12px" }}>
                 <span style={{ color: "var(--accent)", fontSize: "1.1rem" }}>◈</span>
@@ -723,7 +724,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+        <div className="promise-stats-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
           {[
             { label: "Quality Score", value: "9.8/10", sub: "Independent labs" },
             { label: "Return Rate", value: "< 1%", sub: "Industry avg 8%" },
@@ -742,7 +743,7 @@ export default function Home() {
       {/* ──────────────────────────────────────────────
           11. CTA
       ────────────────────────────────────────────── */}
-      <section ref={ctaRef} style={{
+      <section ref={ctaRef} className="home-cta" style={{
         minHeight: "70vh", display: "flex", alignItems: "center", justifyContent: "center",
         textAlign: "center", padding: "100px 40px",
         background: "var(--accent)", position: "relative", overflow: "hidden",
@@ -760,7 +761,7 @@ export default function Home() {
           <h2 className="cta-item font-display" style={{ fontSize: "clamp(3.5rem, 11vw, 11rem)", color: "#000", lineHeight: 0.88, marginBottom: "44px" }}>
             START YOUR<br />JOURNEY
           </h2>
-          <div className="cta-item" style={{ display: "flex", gap: "14px", justifyContent: "center" }}>
+          <div className="cta-item cta-actions" style={{ display: "flex", gap: "14px", justifyContent: "center" }}>
             <Link to="/products">
               <button style={{
                 background: "#000", color: "var(--accent)",

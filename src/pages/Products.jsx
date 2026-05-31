@@ -51,9 +51,9 @@ export default function Products() {
   };
 
   return (
-    <main>
+    <main className="products-page">
       {/* Hero */}
-      <section ref={heroRef} style={{
+      <section ref={heroRef} className="products-hero" style={{
         minHeight: "55vh", display: "flex", alignItems: "flex-end",
         padding: "140px 10vw 70px",
         borderBottom: "1px solid var(--border)",
@@ -89,8 +89,9 @@ export default function Products() {
         const isEven = i % 2 === 0;
         const accentColors = ["#C8FF00", "#00FFD1", "#F0EDE8", "#5a8a1e"];
         const ac = accentColors[i];
+        const taglineColor = i === 3 ? "var(--accent)" : ac;
         return (
-          <section key={product.id} ref={el => (sectionsRef.current[i] = el)} style={{
+          <section key={product.id} ref={el => (sectionsRef.current[i] = el)} className="product-section" style={{
             minHeight: "90vh", display: "flex", alignItems: "center",
             padding: "80px 10vw", gap: "80px",
             background: i % 2 === 0 ? "var(--bg)" : "var(--surface)",
@@ -98,14 +99,14 @@ export default function Products() {
             overflow: "hidden",
           }}>
             {/* Image */}
-            <div className="prod-img hover-card" style={{
+            <div className="prod-img product-image hover-card" style={{
               flex: "0 0 46%", aspectRatio: "1",
               display: "flex", alignItems: "center", justifyContent: "center",
               position: "relative", padding: "48px",
               background: `radial-gradient(circle at 55% 45%, ${ac}08 0%, transparent 65%)`,
             }}>
               {product.badge && (
-                <div style={{
+                <div className="product-badge" style={{
                   position: "absolute", top: "20px", left: "20px",
                   background: "var(--accent)", color: "#000",
                   padding: "5px 14px", fontSize: "0.62rem", fontWeight: "700",
@@ -122,21 +123,17 @@ export default function Products() {
                 onMouseLeave={e => { e.target.style.transform = "scale(1) rotate(0deg)"; e.target.style.filter = `drop-shadow(0 24px 64px ${ac}22)`; }}
                 onError={e => { e.target.style.display = "none"; }}
               />
-              <div style={{
-                position: "absolute", bottom: "20px", right: "20px",
-                color: "var(--muted)", fontSize: "0.68rem", letterSpacing: "0.12em", textTransform: "uppercase",
-              }}>{product.color}</div>
             </div>
 
             {/* Info */}
-            <div style={{ flex: 1 }}>
+            <div className="product-copy" style={{ flex: 1 }}>
               <p className="prod-info" style={{ color: "var(--accent)", fontSize: "0.7rem", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "14px" }}>
                 {product.category} — #{String(product.id).padStart(2, "0")}
               </p>
               <h2 className="prod-info font-display" style={{ fontSize: "clamp(3rem, 6.5vw, 6.5rem)", lineHeight: 0.88, marginBottom: "10px" }}>
                 {product.name}
               </h2>
-              <p className="prod-info" style={{ color: ac, fontSize: "1.05rem", fontStyle: "italic", marginBottom: "22px", letterSpacing: "0.02em" }}>
+              <p className="prod-info" style={{ color: taglineColor, fontSize: "1.05rem", fontStyle: "italic", marginBottom: "22px", letterSpacing: "0.02em", fontWeight: 600 }}>
                 "{product.tagline}"
               </p>
               <p className="prod-info" style={{ color: "var(--muted)", fontSize: "0.92rem", lineHeight: 1.9, maxWidth: "440px", marginBottom: "28px" }}>

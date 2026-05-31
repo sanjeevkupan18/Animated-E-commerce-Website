@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { products } from "../data/products";
 
 const RESPONSES = {
@@ -51,11 +52,12 @@ export default function Chatbot() {
     setInput("");
   };
 
-  return (
+  const ui = (
     <>
       {/* Toggle button */}
       <button
         onClick={() => setOpen((o) => !o)}
+        className="chatbot-trigger"
         style={{
           position: "fixed", bottom: "24px", right: "24px",
           width: "54px", height: "54px",
@@ -117,4 +119,8 @@ export default function Chatbot() {
       `}</style>
     </>
   );
+
+  if (typeof document === "undefined") return ui;
+
+  return createPortal(ui, document.body);
 }

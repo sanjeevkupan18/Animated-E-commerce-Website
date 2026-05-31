@@ -97,9 +97,9 @@ export default function Story() {
   }, []);
 
   return (
-    <main>
+    <main className="story-page">
       {/* ── HERO ── */}
-      <section ref={heroRef} style={{
+      <section ref={heroRef} className="story-hero" style={{
         minHeight: "90vh", display: "flex", alignItems: "flex-end",
         padding: "140px 10vw 80px", background: "var(--surface)",
         borderBottom: "1px solid var(--border)", position: "relative", overflow: "hidden",
@@ -137,7 +137,7 @@ export default function Story() {
               </h1>
             </div>
           ))}
-          <div className="hero-sub" style={{ marginTop: "32px", display: "flex", gap: "40px", flexWrap: "wrap" }}>
+          <div className="hero-sub story-stats" style={{ marginTop: "32px", display: "flex", gap: "40px", flexWrap: "wrap" }}>
             {[["2019", "Founded"], ["16", "Patents"], ["62", "Countries"], ["4.9★", "Rating"]].map(([n, l]) => (
               <div key={l}>
                 <span className="font-display" style={{ fontSize: "2rem", color: "var(--accent)", display: "block", lineHeight: 1 }}>{n}</span>
@@ -149,7 +149,7 @@ export default function Story() {
       </section>
 
       {/* ── INTRO ── */}
-      <RevealSection style={{ padding: "120px 10vw", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "center" }}>
+      <RevealSection className="story-intro-grid" style={{ padding: "120px 10vw", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "center" }}>
         <div>
           <p className="rv" style={{ color: "var(--accent)", fontSize: "0.72rem", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "20px" }}>
             — The Beginning
@@ -223,7 +223,7 @@ export default function Story() {
       </RevealSection>
 
       {/* ── MISSION (FULL-WIDTH ACCENT) ── */}
-      <section style={{ padding: "120px 10vw", background: "var(--accent)", position: "relative", overflow: "hidden" }}>
+      <section className="story-mission" style={{ padding: "120px 10vw", background: "var(--accent)", position: "relative", overflow: "hidden" }}>
         <div style={{
           position: "absolute", inset: 0,
           backgroundImage: "linear-gradient(rgba(0,0,0,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.06) 1px, transparent 1px)",
@@ -249,7 +249,7 @@ export default function Story() {
       </section>
 
       {/* ── VALUES ── */}
-      <section style={{ padding: "120px 10vw", background: "var(--bg)" }}>
+      <section className="story-values" style={{ padding: "120px 10vw", background: "var(--bg)" }}>
         <div style={{ marginBottom: "64px" }}>
           <p style={{ color: "var(--accent)", fontSize: "0.72rem", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "14px" }}>— What Drives Us</p>
           <h2 className="font-display" style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)", lineHeight: 0.9 }}>OUR VALUES</h2>
@@ -271,7 +271,7 @@ export default function Story() {
       </section>
 
       {/* ── PHILOSOPHY ── */}
-      <RevealSection style={{ padding: "120px 10vw", background: "var(--surface)", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "center" }}>
+      <RevealSection className="story-philosophy-grid" style={{ padding: "120px 10vw", background: "var(--surface)", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "center" }}>
         <div className="rv" style={{
           display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1px",
           background: "var(--border)", aspectRatio: "1",
@@ -336,7 +336,7 @@ export default function Story() {
       </RevealSection>
 
       {/* ── TIMELINE ── */}
-      <section style={{ padding: "120px 10vw", background: "var(--bg)" }}>
+      <section className="story-timeline" style={{ padding: "120px 10vw", background: "var(--bg)" }}>
         <div style={{ marginBottom: "64px" }}>
           <p style={{ color: "var(--accent)", fontSize: "0.72rem", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "14px" }}>— Milestones</p>
           <h2 className="font-display" style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)", lineHeight: 0.9 }}>THE JOURNEY</h2>
@@ -373,7 +373,7 @@ export default function Story() {
       </section>
 
       {/* ── TEAM ── */}
-      <section style={{ padding: "120px 10vw", background: "var(--surface)" }}>
+      <section className="story-team" style={{ padding: "120px 10vw", background: "var(--surface)" }}>
         <div style={{ marginBottom: "64px" }}>
           <p style={{ color: "var(--accent)", fontSize: "0.72rem", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "14px" }}>— The People</p>
           <h2 className="font-display" style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)", lineHeight: 0.9 }}>MEET THE TEAM</h2>
@@ -400,7 +400,7 @@ export default function Story() {
       </section>
 
       {/* ── SUSTAINABILITY ── */}
-      <RevealSection style={{ padding: "120px 10vw", background: "var(--bg)", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "center" }}>
+      <RevealSection className="story-sustainability-grid" style={{ padding: "120px 10vw", background: "var(--bg)", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "center" }}>
         <div>
           <p className="rv" style={{ color: "var(--accent)", fontSize: "0.72rem", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "20px" }}>
             — Planet First
@@ -450,7 +450,7 @@ export default function Story() {
       </RevealSection>
 
       {/* ── CTA ── */}
-      <section style={{
+      <section className="story-cta" style={{
         padding: "100px 10vw", background: "var(--accent)",
         display: "flex", justifyContent: "space-between", alignItems: "center",
         flexWrap: "wrap", gap: "40px",

@@ -27,9 +27,9 @@ export default function Cart() {
   }, [cart.length]);
 
   return (
-    <main style={{ minHeight: "100vh" }}>
+    <main className="cart-page" style={{ minHeight: "100vh" }}>
       {/* Hero */}
-      <section ref={heroRef} style={{
+      <section ref={heroRef} className="cart-hero" style={{
         padding: "140px 10vw 60px",
         background: "var(--surface)", borderBottom: "1px solid var(--border)",
         position: "relative", overflow: "hidden",
@@ -65,7 +65,7 @@ export default function Cart() {
             </Link>
           </div>
         ) : (
-          <div ref={containerRef} style={{ display: "grid", gridTemplateColumns: "1fr 380px", gap: "56px", alignItems: "start" }}>
+          <div ref={containerRef} className="cart-layout" style={{ display: "grid", gridTemplateColumns: "1fr 380px", gap: "56px", alignItems: "start" }}>
             {/* Items */}
             <div>
               {cart.map((item) => (
@@ -142,7 +142,7 @@ export default function Cart() {
             </div>
 
             {/* Summary */}
-            <div className="summary-box hover-card" style={{
+            <div className="summary-box cart-summary hover-card" style={{
               padding: "36px", position: "sticky", top: "100px", opacity: 0,
               background: "var(--surface)",
             }}>

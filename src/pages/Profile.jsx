@@ -21,6 +21,7 @@ const orderHistory = [
 
 export default function Profile() {
   const containerRef = useRef(null);
+  const rightColumnRef = useRef(null);
   const heroRef = useRef(null);
   const [editMode, setEditMode] = useState(false);
   const [activeTab, setActiveTab] = useState("orders");
@@ -39,12 +40,23 @@ export default function Profile() {
     return () => ctx.revert();
   }, []);
 
+  useEffect(() => {
+    const panel = rightColumnRef.current?.querySelector(".profile-tab-panel");
+    if (!panel) return;
+
+    gsap.fromTo(
+      panel,
+      { opacity: 0, y: 22, scale: 0.985 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power3.out" }
+    );
+  }, [activeTab]);
+
   const tabs = ["orders", "preferences", "addresses"];
 
   return (
-    <main style={{ minHeight: "100vh" }}>
+    <main className="profile-page" style={{ minHeight: "100vh" }}>
       {/* Hero */}
-      <section ref={heroRef} style={{
+      <section ref={heroRef} className="profile-hero" style={{
         padding: "140px 10vw 60px", background: "var(--surface)",
         borderBottom: "1px solid var(--border)", position: "relative", overflow: "hidden",
       }}>
@@ -63,11 +75,11 @@ export default function Profile() {
         </div>
       </section>
 
-      <section style={{ padding: "60px 10vw 80px" }}>
-        <div ref={containerRef} style={{ display: "grid", gridTemplateColumns: "320px 1fr", gap: "32px", alignItems: "start" }}>
+      <section className="profile-content" style={{ padding: "60px 10vw 80px" }}>
+        <div ref={containerRef} className="profile-layout" style={{ display: "grid", gridTemplateColumns: "320px 1fr", gap: "32px", alignItems: "start" }}>
 
           {/* LEFT COLUMN */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+          <div className="profile-sidebar" style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
             {/* User card */}
             <div className="profile-card hover-card" style={{ padding: "36px 28px", textAlign: "center", opacity: 0 }}>
               {/* Avatar with glow */}
@@ -165,9 +177,9 @@ export default function Profile() {
           </div>
 
           {/* RIGHT COLUMN */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+          <div ref={rightColumnRef} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
             {/* Tabs */}
-            <div className="profile-card" style={{
+            <div className="profile-card profile-tabs" style={{
               display: "flex", borderBottom: "1px solid var(--border)",
               background: "var(--surface)", padding: "0 28px",
               gap: "0", opacity: 1,
@@ -189,10 +201,10 @@ export default function Profile() {
 
             {/* Orders Tab */}
             {activeTab === "orders" && (
-              <div className="profile-card hover-card" style={{ padding: "32px", opacity: 0 }}>
+              <div className="profile-card profile-tab-panel profile-orders-panel hover-card" style={{ padding: "32px", opacity: 0 }}>
                 <h2 className="font-display" style={{ fontSize: "1.8rem", marginBottom: "28px", letterSpacing: "0.04em" }}>ORDER HISTORY</h2>
                 {/* Table head */}
-                <div style={{
+                <div className="profile-orders-head" style={{
                   display: "grid", gridTemplateColumns: "1.2fr 2fr 1.4fr 80px 100px 120px",
                   padding: "0 0 12px", borderBottom: "1px solid var(--border)",
                   color: "var(--muted)", fontSize: "0.65rem", letterSpacing: "0.14em", textTransform: "uppercase",
@@ -200,7 +212,7 @@ export default function Profile() {
                   {["Order", "Product", "Date", "Size", "Amount", "Status"].map(h => <span key={h}>{h}</span>)}
                 </div>
                 {orderHistory.map((order) => (
-                  <div key={order.id} style={{
+                  <div key={order.id} className="profile-order-row" style={{
                     display: "grid", gridTemplateColumns: "1.2fr 2fr 1.4fr 80px 100px 120px",
                     padding: "18px 0", borderBottom: "1px solid var(--border)",
                     alignItems: "center",
@@ -210,12 +222,12 @@ export default function Profile() {
                     onMouseEnter={e => (e.currentTarget.style.background = "rgba(200,255,0,0.025)")}
                     onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
                   >
-                    <span style={{ color: "var(--accent)", fontSize: "0.78rem", fontFamily: "monospace" }}>{order.id}</span>
-                    <span className="font-display" style={{ fontSize: "1.05rem" }}>{order.product}</span>
-                    <span style={{ color: "var(--muted)", fontSize: "0.8rem" }}>{order.date}</span>
-                    <span style={{ color: "var(--muted)", fontSize: "0.8rem" }}>US {order.size}</span>
-                    <span style={{ fontWeight: "700" }}>${order.amount}</span>
-                    <span style={{
+                    <div data-label="Order" style={{ color: "var(--accent)", fontSize: "0.78rem", fontFamily: "monospace" }}>{order.id}</div>
+                    <div data-label="Product" className="font-display" style={{ fontSize: "1.05rem" }}>{order.product}</div>
+                    <div data-label="Date" style={{ color: "var(--muted)", fontSize: "0.8rem" }}>{order.date}</div>
+                    <div data-label="Size" style={{ color: "var(--muted)", fontSize: "0.8rem" }}>US {order.size}</div>
+                    <div data-label="Amount" style={{ fontWeight: "700" }}>${order.amount}</div>
+                    <div data-label="Status" style={{
                       display: "inline-flex", alignItems: "center", gap: "6px",
                       background: "rgba(34,197,94,0.1)", color: "#22c55e",
                       padding: "4px 10px", fontSize: "0.65rem", fontWeight: "700",
@@ -223,10 +235,10 @@ export default function Profile() {
                     }}>
                       <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#22c55e", display: "inline-block" }} />
                       {order.status}
-                    </span>
+                    </div>
                   </div>
                 ))}
-                <div style={{ marginTop: "24px", display: "flex", gap: "10px" }}>
+                <div className="profile-orders-actions" style={{ marginTop: "24px", display: "flex", gap: "10px" }}>
                   <button className="btn-accent" style={{ padding: "10px 24px", fontSize: "0.72rem" }}><span>Track Orders</span></button>
                   <button className="btn-outline" style={{ padding: "10px 24px", fontSize: "0.72rem" }}><span>Returns</span></button>
                 </div>
@@ -235,9 +247,9 @@ export default function Profile() {
 
             {/* Preferences Tab */}
             {activeTab === "preferences" && (
-              <div className="profile-card hover-card" style={{ padding: "32px", opacity: 0 }}>
+              <div className="profile-card profile-tab-panel hover-card" style={{ padding: "32px", opacity: 0 }}>
                 <h2 className="font-display" style={{ fontSize: "1.8rem", marginBottom: "28px", letterSpacing: "0.04em" }}>PREFERENCES</h2>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+                <div className="profile-preferences-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
                   {[
                     { label: "New Drop Alerts", on: true },
                     { label: "Restock Notifications", on: true },
@@ -273,9 +285,9 @@ export default function Profile() {
 
             {/* Addresses Tab */}
             {activeTab === "addresses" && (
-              <div className="profile-card hover-card" style={{ padding: "32px", opacity: 0 }}>
+              <div className="profile-card profile-tab-panel hover-card" style={{ padding: "32px", opacity: 0 }}>
                 <h2 className="font-display" style={{ fontSize: "1.8rem", marginBottom: "28px", letterSpacing: "0.04em" }}>ADDRESSES</h2>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+                <div className="profile-addresses-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
                   {[
                     { label: "🏠 Home (Default)", addr: "1284 W 42nd Street, Apt 7B, New York, NY 10036, USA" },
                     { label: "🏢 Work", addr: "Empire State Building, 350 5th Ave, Suite 1200, New York, NY 10118, USA" },
@@ -302,7 +314,7 @@ export default function Profile() {
             )}
 
             {/* Loyalty card */}
-            <div className="profile-card" style={{
+            <div className="profile-card profile-loyalty-card" style={{
               padding: "28px 32px", opacity: 1,
               background: "linear-gradient(135deg, var(--surface) 0%, rgba(200,255,0,0.04) 100%)",
               border: "1px solid rgba(200,255,0,0.15)",
