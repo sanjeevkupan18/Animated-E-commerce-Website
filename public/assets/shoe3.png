@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <rect width="600" height="400" fill="#050505"/>
+  <ellipse cx="300" cy="342" rx="210" ry="18" fill="#333" opacity="0.5"/>
+  <!-- Body -->
+  <path d="M85 282 Q125 172 212 152 L368 142 Q468 140 508 177 Q528 202 508 237 Q418 267 85 257 Z" fill="#1a1512" stroke="#8B6914" stroke-width="1.5"/>
+  <path d="M95 280 Q128 180 218 160 L364 150 Q462 148 500 182 Q517 204 500 234 Q416 260 95 252 Z" fill="#1e1814"/>
+  <!-- Leather texture -->
+  <path d="M150 260 Q250 210 380 205 Q460 202 500 225" stroke="#2a2018" stroke-width="3" fill="none"/>
+  <path d="M140 248 Q240 200 370 195 Q455 192 502 218" stroke="#2a2018" stroke-width="2" fill="none" opacity="0.6"/>
+  <!-- Tongue -->
+  <path d="M202 152 L218 108 Q223 88 238 90 L292 93 Q303 95 300 112 L294 150" fill="#2a1f10" stroke="#8B6914" stroke-width="1"/>
+  <!-- Stitching -->
+  <path d="M202 152 Q248 170 294 150" stroke="#8B6914" stroke-width="1" stroke-dasharray="4,3" fill="none"/>
+  <!-- Laces bone white -->
+  <line x1="210" y1="148" x2="347" y2="144" stroke="#E8DCC8" stroke-width="2"/>
+  <line x1="213" y1="138" x2="343" y2="134" stroke="#E8DCC8" stroke-width="1.5" opacity="0.7"/>
+  <line x1="216" y1="128" x2="339" y2="124" stroke="#E8DCC8" stroke-width="1.5" opacity="0.5"/>
+  <!-- Premium sole -->
+  <path d="M85 257 Q418 267 508 237 L513 260 Q418 292 85 280 Z" fill="#E8DCC8"/>
+  <path d="M85 274 Q418 284 513 256 L513 260 Q418 292 85 280 Z" fill="#c8b890"/>
+  <!-- Gold logo -->
+  <text x="140" y="235" font-family="Georgia" font-size="13" fill="#8B6914" letter-spacing="5">SOLESTEP</text>
+</svg>

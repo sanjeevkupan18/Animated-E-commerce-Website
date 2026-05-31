@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <defs>
+    <radialGradient id="bg1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1a1a0a"/>
+      <stop offset="100%" stop-color="#080808"/>
+    </radialGradient>
+    <radialGradient id="glow1" cx="50%" cy="60%" r="40%">
+      <stop offset="0%" stop-color="#C8FF00" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#C8FF00" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#bg1)"/>
+  <ellipse cx="300" cy="340" rx="220" ry="22" fill="#C8FF00" opacity="0.08"/>
+  <ellipse cx="300" cy="340" rx="160" ry="12" fill="#C8FF00" opacity="0.12"/>
+  <!-- Main shoe body -->
+  <path d="M80 280 Q120 170 210 150 L370 140 Q470 138 510 175 Q530 200 510 235 Q420 265 80 255 Z" fill="#111" stroke="#C8FF00" stroke-width="1.5"/>
+  <path d="M90 278 Q125 178 215 158 L365 148 Q460 146 498 180 Q515 202 498 232 Q415 258 90 250 Z" fill="#1a1a1a"/>
+  <!-- Accent panels -->
+  <path d="M200 150 L215 110 Q220 90 235 92 L290 95 Q300 97 298 112 L292 148" fill="#C8FF00" opacity="0.9"/>
+  <path d="M290 148 L295 100 Q298 88 310 90 L345 93 Q356 96 353 110 L348 147" fill="#C8FF00" opacity="0.6"/>
+  <!-- Laces -->
+  <line x1="208" y1="148" x2="345" y2="144" stroke="#C8FF00" stroke-width="1.5" opacity="0.4"/>
+  <line x1="212" y1="138" x2="340" y2="134" stroke="#C8FF00" stroke-width="1" opacity="0.3"/>
+  <line x1="217" y1="128" x2="335" y2="124" stroke="#C8FF00" stroke-width="1" opacity="0.2"/>
+  <!-- Sole -->
+  <path d="M80 255 Q420 265 510 235 L515 258 Q420 288 80 278 Z" fill="#C8FF00" opacity="0.8"/>
+  <path d="M80 272 Q420 282 515 253 L515 258 Q420 288 80 278 Z" fill="#111"/>
+  <!-- Logo text -->
+  <text x="130" y="230" font-family="Arial Black" font-size="16" fill="#C8FF00" opacity="0.7" letter-spacing="4">SOLESTEP</text>
+  <!-- Glow -->
+  <ellipse cx="300" cy="200" rx="180" ry="100" fill="url(#glow1)"/>
+</svg>
